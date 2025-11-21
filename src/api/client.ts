@@ -3,9 +3,17 @@ import { Platform } from 'react-native';
 
 // Android Emulator uses 10.0.2.2 to access host localhost
 // iOS Simulator uses localhost
-const BASE_URL = Platform.OS === 'android'
-    ? 'http://10.0.2.2:3000/api'
-    : 'http://localhost:3000/api';
+// const BASE_URL = Platform.OS === 'android'
+//     ? 'http://10.0.2.2:3000/api'
+//     : 'http://localhost:3000/api';
+
+let BASE_URL = ''
+
+if (__DEV__) {
+    BASE_URL = 'http://10.0.2.2:3000/api'
+} else {
+    BASE_URL = 'https://football-app-backend-vjio.onrender.com/api'
+}
 
 const client = axios.create({
     baseURL: BASE_URL,

@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { getLeagueStats } from '../api/football';
 import { LeagueTabParamList } from '../navigation/LeagueTabs';
+import ScreenLayout from '../components/layout/ScreenLayout';
 
 type StatsRouteProp = RouteProp<LeagueTabParamList, 'Stats'>;
 
@@ -35,50 +36,25 @@ const Stats = () => {
     }
 
     return (
-        <ScrollView style={styles.container}>
-            {Object.keys(data.data?.stats).map((key) => (
-                <View key={key} style={styles.section}>
-                    <Text style={styles.sectionTitle}>{key}</Text>
-                    {data.data?.stats[key].slice(0, 5).map((player, index) => (
-                        <View key={index} style={[styles.row, index === 4 && styles.lastRow]}>
-                            <Text style={styles.rank}>{player.rank}</Text>
-                            <View style={styles.playerInfo}>
-                                <Text style={styles.playerName}>{player.name}</Text>
-                                <Text style={styles.teamName}>{player.team}</Text>
+        <ScreenLayout>
+            <ScrollView style={styles.container}>
+                {Object.keys(data.data?.stats).map((key) => (
+                    <View key={key} style={styles.section}>
+                        <Text style={styles.sectionTitle}>{key}</Text>
+                        {data.data?.stats[key].slice(0, 5).map((player, index) => (
+                            <View key={index} style={[styles.row, index === 4 && styles.lastRow]}>
+                                <Text style={styles.rank}>{player.rank}</Text>
+                                <View style={styles.playerInfo}>
+                                    <Text style={styles.playerName}>{player.name}</Text>
+                                    <Text style={styles.teamName}>{player.team}</Text>
+                                </View>
+                                <Text style={styles.statValue}>{player.value}</Text>
                             </View>
-                            <Text style={styles.statValue}>{player.value}</Text>
-                        </View>
-                    ))}
-                </View>
-            ))}
-            {/* <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Top Scorers</Text>
-                {data.data?.stats['Top Scorers']?.map((player, index) => (
-                    <View key={index} style={styles.row}>
-                        <Text style={styles.rank}>{player.rank}</Text>
-                        <View style={styles.playerInfo}>
-                            <Text style={styles.playerName}>{player.name}</Text>
-                            <Text style={styles.teamName}>{player.team}</Text>
-                        </View>
-                        <Text style={styles.statValue}>{player.value}</Text>
+                        ))}
                     </View>
                 ))}
-            </View>
-
-            <View style={styles.section}>
-                <Text style={styles.sectionTitle}>Top Assists</Text>
-                {data.data?.stats['Assists']?.map((player, index) => (
-                    <View key={index} style={styles.row}>
-                        <Text style={styles.rank}>{player.rank}</Text>
-                        <View style={styles.playerInfo}>
-                            <Text style={styles.playerName}>{player.name}</Text>
-                            <Text style={styles.teamName}>{player.team}</Text>
-                        </View>
-                        <Text style={styles.statValue}>{player.value}</Text>
-                    </View>
-                ))}
-            </View> */}
-        </ScrollView>
+            </ScrollView>
+        </ScreenLayout>
     );
 };
 

@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../types/routes';
 import { ChevronRight } from 'lucide-react-native';
+import ScreenLayout from '../components/layout/ScreenLayout';
 
 const LEAGUES = [
     { id: '1', name: 'Premier League', country: 'england', league: 'premier-league', color: '#3d195b' },
@@ -30,15 +31,17 @@ const Home = () => {
     );
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.header}>Select League</Text>
-            <FlatList
-                data={LEAGUES}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-                contentContainerStyle={styles.listContent}
-            />
-        </View>
+        <ScreenLayout>
+            <View style={styles.container}>
+                <Text style={styles.header}>Select League</Text>
+                <FlatList
+                    data={LEAGUES}
+                    renderItem={renderItem}
+                    keyExtractor={(item) => item.id}
+                    contentContainerStyle={styles.listContent}
+                />
+            </View>
+        </ScreenLayout>
     );
 };
 
@@ -48,8 +51,8 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#f5f5f5',
-        paddingTop: 60,
         paddingHorizontal: 20,
+        paddingTop: 20, // Added some padding top for spacing from safe area
     },
     header: {
         fontSize: 28,
@@ -59,6 +62,7 @@ const styles = StyleSheet.create({
     },
     listContent: {
         gap: 16,
+        paddingBottom: 20,
     },
     card: {
         backgroundColor: 'white',

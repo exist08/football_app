@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { getLeagueOverview } from '../api/football';
 import { LeagueTabParamList } from '../navigation/LeagueTabs';
+import ScreenLayout from '../components/layout/ScreenLayout';
 
 type LeagueOverviewRouteProp = RouteProp<LeagueTabParamList, 'Overview'>;
 
@@ -35,24 +36,30 @@ const LeagueOverview = () => {
     }
 
     return (
-        <ScrollView style={styles.container}>
-            <Text style={styles.header}>{data.data?.league} - {data.data?.country}</Text>
-            <View style={styles.matchesContainer}>
-                {data.data?.matches.map((match, index) => (
-                    <View key={index} style={styles.matchCard}>
-                        <View style={styles.teamRow}>
-                            <Text style={styles.teamName}>{match.homeTeam}</Text>
-                            <Text style={styles.score}>{match.homeScore || '-'}</Text>
+        <ScreenLayout>
+            <ScrollView
+                style={[styles.container, { backgroundColor: '#fff' }]}
+                showsVerticalScrollIndicator={false}
+            >
+                <Text style={styles.header}>{data.data?.league}</Text>
+                <View style={styles.matchesContainer}>
+                    {data.data?.matches.map((match, index) => (
+                        <View key={index} style={styles.matchCard}>
+                            <View style={styles.teamRow}>
+                                <Text style={styles.teamName}>{match.homeTeam}</Text>
+                                <Text style={styles.score}>{match.homeScore || '-'}</Text>
+                            </View>
+                            <View style={styles.teamRow}>
+                                <Text style={styles.teamName}>{match.awayTeam}</Text>
+                                <Text style={styles.score}>{match.awayScore || '-'}</Text>
+                            </View>
+                            <Text style={styles.matchStatus}>{match.time} - {match.date}</Text>
                         </View>
-                        <View style={styles.teamRow}>
-                            <Text style={styles.teamName}>{match.awayTeam}</Text>
-                            <Text style={styles.score}>{match.awayScore || '-'}</Text>
-                        </View>
-                        <Text style={styles.matchStatus}>{match.time} - {match.date}</Text>
-                    </View>
-                ))}
-            </View>
-        </ScrollView>
+                    ))}
+                </View>
+                <View style={{ height: 100 }} />
+            </ScrollView>
+        </ScreenLayout>
     );
 };
 
@@ -61,7 +68,6 @@ export default LeagueOverview;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
         padding: 16,
     },
     center: {
