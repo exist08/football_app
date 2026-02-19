@@ -34,7 +34,7 @@ export interface LeagueStandings {
 
 export interface PlayerStat {
     rank: number;
-    name: string;
+    player: string;
     team: string;
     value?: number;
 }

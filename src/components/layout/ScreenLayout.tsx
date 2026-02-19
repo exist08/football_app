@@ -11,9 +11,10 @@ const ScreenLayout = ({ children }: ScreenLayoutProps) => {
     return (
         <SafeAreaView
             style={[styles.container, { backgroundColor: '#fff' }]}
+            edges={['top']}
         >
             <StatusBar
-                barStyle={'light-content'}
+                barStyle={'dark-content'}
                 backgroundColor={'red'}
                 translucent={true}
             />

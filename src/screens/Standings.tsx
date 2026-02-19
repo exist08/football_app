@@ -15,6 +15,7 @@ const Standings = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['leagueStandings', country, league],
         queryFn: () => getLeagueStandings(country, league),
+        staleTime: 30 * 60 * 1000,
     });
 
     console.log(data)
@@ -37,31 +38,33 @@ const Standings = () => {
 
     return (
         <ScreenLayout>
-            <ScrollView style={styles.container} horizontal>
-                <View>
-                    <View style={[styles.row, styles.headerRow]}>
-                        <Text style={[styles.cell, styles.rankCell]}>#</Text>
-                        <Text style={[styles.cell, styles.teamCell]}>Team</Text>
-                        <Text style={styles.cell}>P</Text>
-                        <Text style={styles.cell}>W</Text>
-                        <Text style={styles.cell}>D</Text>
-                        <Text style={styles.cell}>L</Text>
-                        <Text style={styles.cell}>GD</Text>
-                        <Text style={styles.cell}>Pts</Text>
-                    </View>
-                    {data.data?.standings.slice(1).map((team) => (
-                        <View key={team.team} style={styles.row}>
-                            <Text style={[styles.cell, styles.rankCell]}>{team.position}</Text>
-                            <Text style={[styles.cell, styles.teamCell]}>{team.team}</Text>
-                            <Text style={styles.cell}>{team.played}</Text>
-                            <Text style={styles.cell}>{team.wins}</Text>
-                            <Text style={styles.cell}>{team.draws}</Text>
-                            <Text style={styles.cell}>{team.losses}</Text>
-                            <Text style={styles.cell}>{team.goalsDiff}</Text>
-                            <Text style={[styles.cell, styles.pointsCell]}>{team.points}</Text>
+            <ScrollView style={styles.container}>
+                <ScrollView horizontal stickyHeaderIndices={[0]}>
+                    <View>
+                        <View style={[styles.row, styles.headerRow]}>
+                            <Text style={[styles.cell, styles.rankCell]}>#</Text>
+                            <Text style={[styles.cell, styles.teamCell]}>Team</Text>
+                            <Text style={styles.cell}>P</Text>
+                            <Text style={styles.cell}>W</Text>
+                            <Text style={styles.cell}>D</Text>
+                            <Text style={styles.cell}>L</Text>
+                            <Text style={styles.cell}>GD</Text>
+                            <Text style={styles.cell}>Pts</Text>
                         </View>
-                    ))}
-                </View>
+                        {data.data?.standings.slice(1).map((team) => (
+                            <View key={team.team} style={styles.row}>
+                                <Text style={[styles.cell, styles.rankCell]}>{team.position}</Text>
+                                <Text style={[styles.cell, styles.teamCell]}>{team.team}</Text>
+                                <Text style={styles.cell}>{team.played}</Text>
+                                <Text style={styles.cell}>{team.wins}</Text>
+                                <Text style={styles.cell}>{team.draws}</Text>
+                                <Text style={styles.cell}>{team.losses}</Text>
+                                <Text style={styles.cell}>{team.goalsDiff}</Text>
+                                <Text style={[styles.cell, styles.pointsCell]}>{team.points}</Text>
+                            </View>
+                        ))}
+                    </View>
+                </ScrollView>
             </ScrollView>
         </ScreenLayout>
     );

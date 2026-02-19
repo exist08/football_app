@@ -7,17 +7,15 @@ import { Platform } from 'react-native';
 //     ? 'http://10.0.2.2:3000/api'
 //     : 'http://localhost:3000/api';
 
-let BASE_URL = ''
+let BASE_URL = 'https://football-app-backend-tat6.onrender.com/api'
 
-if (__DEV__) {
-    BASE_URL = 'http://10.0.2.2:3000/api'
-} else {
-    BASE_URL = 'https://football-app-backend-vjio.onrender.com/api'
-}
+// if (__DEV__) {
+//     BASE_URL = 'http://10.0.2.2:3000/api'
+// }
 
 const client = axios.create({
     baseURL: BASE_URL,
-    timeout: 10000,
+    timeout: 20000,
     headers: {
         'Content-Type': 'application/json',
     },

@@ -15,6 +15,7 @@ const Stats = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['leagueStats', country, league],
         queryFn: () => getLeagueStats(country, league),
+        staleTime: 30 * 60 * 1000,
     });
 
     console.log(data)
@@ -45,7 +46,7 @@ const Stats = () => {
                             <View key={index} style={[styles.row, index === 4 && styles.lastRow]}>
                                 <Text style={styles.rank}>{player.rank}</Text>
                                 <View style={styles.playerInfo}>
-                                    <Text style={styles.playerName}>{player.name}</Text>
+                                    <Text style={styles.playerName}>{player.player}</Text>
                                     <Text style={styles.teamName}>{player.team}</Text>
                                 </View>
                                 <Text style={styles.statValue}>{player.value}</Text>
